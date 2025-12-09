@@ -8,14 +8,23 @@ from reportlab.lib.enums import TA_LEFT, TA_CENTER, TA_RIGHT
 
 TEMPLATE_FILE = "templates.json"
 
-# --------------------------
-# Utility Functions
-# --------------------------
+# -------------------------------------
+# JSON Utility Functions
+# -------------------------------------
 
 def load_templates():
+    """Safely load templates.json without crashing"""
     if os.path.exists(TEMPLATE_FILE):
-        with open(TEMPLATE_FILE, "r") as f:
-            return json.load(f)
+        try:
+            with open(TEMPLATE_FILE, "r") as f:
+                content = f.read().strip()
+                if content == "" or content is None:
+                    return {}
+                return json.loads(content)
+        except:
+            # auto-reset corrupted file
+            save_templates({})
+            return {}
     return {}
 
 def save_templates(data):
@@ -23,7 +32,7 @@ def save_templates(data):
         json.dump(data, f, indent=4)
 
 def resolve_json_path(data, path):
-    """Fetch value from JSON using path like a → b → c"""
+    """Fetch value from JSON using path like: user → payDetail → total_salary_amount"""
     try:
         parts = [p.strip() for p in path.split("→")]
         for p in parts:
@@ -35,6 +44,10 @@ def resolve_json_path(data, path):
 def alignment_to_enum(align):
     return {"Left": TA_LEFT, "Center": TA_CENTER, "Right": TA_RIGHT}[align]
 
+# -------------------------------------
+# PDF GENERATION
+# -------------------------------------
+
 def generate_pdf(template, user_json=None):
     filename = "generated_output.pdf"
     doc = SimpleDocTemplate(filename, pagesize=A4)
@@ -43,85 +56,98 @@ def generate_pdf(template, user_json=None):
 
     for section in ["Header", "Body", "Footer"]:
         story.append(Paragraph(f"<b>{section}</b>", styles["Heading3"]))
-        for item in template[section]:
+
+        for item in template.get(section, []):
             key = item["key"]
             path = item["map"]
             default = item["default"]
             align = item["align"]
 
-            val = resolve_json_path(user_json or {}, path)
-            if val is None:
-                val = default
+            value = resolve_json_path(user_json or {}, path)
+            if value is None:
+                value = default
 
             style = ParagraphStyle(
-                name="custom",
+                name="custom_align",
                 alignment=alignment_to_enum(align),
                 fontSize=12
             )
-            story.append(Paragraph(f"{key}: {val}", style))
+
+            story.append(Paragraph(f"{key}: {value}", style))
             story.append(Spacer(1, 6))
 
     doc.build(story)
     return filename
 
-# --------------------------
-# Streamlit UI
-# --------------------------
+# -------------------------------------
+# STREAMlit UI
+# -------------------------------------
 
-st.title("📄 Dynamic PDF Template System")
+st.title("📄 Dynamic PDF Template System (Streamlit Cloud Version)")
 
 menu = st.sidebar.selectbox("Menu", ["Create Template", "Preview & Generate PDF"])
 templates = load_templates()
 
-# ------------------------------------------------------
-# SCREEN 1 — TEMPLATE CREATION
-# ------------------------------------------------------
+# -------------------------------------
+# 1. TEMPLATE CREATION SCREEN
+# -------------------------------------
+
 if menu == "Create Template":
-    st.header("Create a New PDF Template")
+    st.header("Create New Template")
 
     template_name = st.text_input("Template Name")
 
     if template_name:
 
+        # --- Header Section ---
         st.subheader("Header Fields")
         header = st.session_state.get("header", [])
+
         if st.button("Add Header Field"):
             header.append({"key": "", "map": "", "default": "", "align": "Left"})
+
         st.session_state["header"] = header
 
         for i, f in enumerate(header):
-            st.write(f"### Field {i+1}")
+            st.write(f"### Header Field {i+1}")
             f["key"] = st.text_input(f"Header Key {i}", f["key"])
             f["map"] = st.text_input(f"Header Mapping {i}", f["map"])
             f["default"] = st.text_input(f"Header Default {i}", f["default"])
-            f["align"] = st.selectbox(f"Header Alignment {i}", ["Left", "Center", "Right"], index=["Left", "Center", "Right"].index(f["align"]))
+            f["align"] = st.selectbox(f"Header Align {i}", ["Left", "Center", "Right"], index=["Left", "Center", "Right"].index(f["align"]))
 
+        # --- Body Section ---
         st.subheader("Body Fields")
         body = st.session_state.get("body", [])
+
         if st.button("Add Body Field"):
             body.append({"key": "", "map": "", "default": "", "align": "Left"})
+
         st.session_state["body"] = body
 
         for i, f in enumerate(body):
-            st.write(f"### Field {i+1}")
+            st.write(f"### Body Field {i+1}")
             f["key"] = st.text_input(f"Body Key {i}", f["key"])
             f["map"] = st.text_input(f"Body Mapping {i}", f["map"])
             f["default"] = st.text_input(f"Body Default {i}", f["default"])
-            f["align"] = st.selectbox(f"Body Alignment {i}", ["Left", "Center", "Right"], index=["Left", "Center", "Right"].index(f["align"]))
+            f["align"] = st.selectbox(f"Body Align {i}", ["Left", "Center", "Right"], index=["Left", "Center", "Right"].index(f["align"]))
 
+        # --- Footer Section ---
         st.subheader("Footer Fields")
         footer = st.session_state.get("footer", [])
+
         if st.button("Add Footer Field"):
             footer.append({"key": "", "map": "", "default": "", "align": "Left"})
+
         st.session_state["footer"] = footer
 
         for i, f in enumerate(footer):
-            st.write(f"### Field {i+1}")
+            st.write(f"### Footer Field {i+1}")
             f["key"] = st.text_input(f"Footer Key {i}", f["key"])
             f["map"] = st.text_input(f"Footer Mapping {i}", f["map"])
             f["default"] = st.text_input(f"Footer Default {i}", f["default"])
-            f["align"] = st.selectbox(f"Footer Alignment {i}", ["Left", "Center", "Right"], index=["Left", "Center", "Right"].index(f["align"]))
+            f["align"] = st.selectbox(f"Footer Align {i}", ["Left", "Center", "Right"], index=["Left", "Center", "Right"].index(f["align"]))
 
+        # Save Template Button
         if st.button("Save Template"):
             templates[template_name] = {
                 "Header": header,
@@ -129,13 +155,14 @@ if menu == "Create Template":
                 "Footer": footer
             }
             save_templates(templates)
-            st.success("Template Saved Successfully!")
+            st.success("Template saved successfully!")
 
-# ------------------------------------------------------
-# SCREEN 2 — PDF GENERATION
-# ------------------------------------------------------
+# -------------------------------------
+# 2. PDF PREVIEW / GENERATION SCREEN
+# -------------------------------------
+
 if menu == "Preview & Generate PDF":
-    st.header("Generate PDF from Template")
+    st.header("Generate PDF")
 
     if not templates:
         st.warning("No templates found. Please create one first.")
@@ -143,7 +170,8 @@ if menu == "Preview & Generate PDF":
         template_name = st.selectbox("Select Template", list(templates.keys()))
         template = templates[template_name]
 
-        dummy_user_data = {
+        # Dummy Data
+        dummy_data = {
             "user": {
                 "name": "Amit Sharma",
                 "payDetail": {
@@ -159,17 +187,16 @@ if menu == "Preview & Generate PDF":
 
         user_json = None
 
+        # Salary Template check
         if "salary" in template_name.lower():
             st.subheader("Select User")
-            user_list = ["Amit Sharma", "Ravi Kumar", "Priya Nair"]
-            selected_user = st.selectbox("User", user_list)
-
-            # For demo, same dummy JSON for all users
-            user_json = dummy_user_data
+            users = ["Amit Sharma", "Ravi Kumar", "Priya Nair"]
+            selected = st.selectbox("User", users)
+            user_json = dummy_data  # same for demo
 
         if st.button("Generate PDF"):
             file = generate_pdf(template, user_json)
-            st.success("PDF Generated Successfully!")
+            st.success("PDF Generated!")
+
             with open(file, "rb") as f:
                 st.download_button("Download PDF", f, file_name="output.pdf")
-
