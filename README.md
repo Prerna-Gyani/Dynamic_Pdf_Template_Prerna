@@ -153,7 +153,7 @@ Each field includes:
 
 ---
 
-### 🅰️ Option A — Professional Document Layout
+### 1️⃣ App 1 — Professional Document Layout
 
 **Characteristics**
 
@@ -163,11 +163,11 @@ Each field includes:
 * Clean corporate look
 * Ideal for salary slips & invoices
 
-**File:** `app_option_a.py`
+**File:** `app1.py`
 
 ---
 
-### 🅲 Option C — Table-Based Layout
+### 2️⃣ App 2 — Table-Based Layout
 
 **Characteristics**
 
@@ -176,7 +176,7 @@ Each field includes:
 * Easy readability
 * Accounting-style layout
 
-**File:** `app_option_c.py`
+**File:** `app2.py`
 
 ---
 
