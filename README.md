@@ -1,12 +1,3 @@
-Below is a **single, clean README.md** that covers **everything together**:
-
-* MongoDB integration
-* Option **A (Professional PDF layout)**
-* Option **C (Table-based PDF layout)**
-* Streamlit Cloud deployment
-* Assignment requirement mapping
-
-You can directly copy-paste this as **README.md** in your GitHub repo.
 
 ---
 
