@@ -69,7 +69,7 @@ def generate_pdf(template, user_json=None):
     return file
 
 # UI
-st.title("📄 Dynamic PDF Template – Option C (Table Layout)")
+st.title("📄 Dynamic PDF Template – Table Layout")
 menu = st.sidebar.radio("Menu", ["Create Template", "Preview & Generate PDF"])
 templates = load_templates()
 
