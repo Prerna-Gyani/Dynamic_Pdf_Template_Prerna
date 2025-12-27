@@ -2,7 +2,7 @@
 
 # 📄 Dynamic PDF Template Generation System
 
-**(Streamlit + MongoDB + PDF | app1 & app2)**
+**(Streamlit + MongoDB + PDF | app1 & app2 )**
 
 ---
 
