@@ -49,9 +49,9 @@ This project strictly follows the assignment requirements.
 ```
 dynamic_pdf_template/
 │
+├── app.py        # Dynamic PDF Template System (Streamlit Cloud Version)
 ├── app1.py        # Professional PDF layout
-├── app1.py        # Professional PDF layout
-├├── app2.py        # Table-based PDF layout
+├── app2.py        # Table-based PDF layout
 ├── mongodb.py             # MongoDB connection & queries
 ├── templates.json         # Salary & Bill templates
 ├── requirements.txt
