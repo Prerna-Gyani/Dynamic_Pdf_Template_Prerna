@@ -19,6 +19,7 @@ The application allows users to:
 * Generate professional, realistic PDFs
 * Preview PDFs in two formats:
 
+  * **App :** Dynamic PDF Template System (Streamlit Cloud Version)
   * **App 1:** Professional document layout
   * **App 2:** Table-based layout
 
@@ -69,7 +70,7 @@ Used for **Salary Template**
 ```json
 {
   "_id": "U001",
-  "name": "Prerna Sharma",
+  "name": "Prerna Gyanchandani",
   "payDetail": {
     "basic_salary": 50000,
     "hra": 10000,
