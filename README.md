@@ -265,12 +265,3 @@ This project demonstrates:
 * Production-ready Streamlit app
 
 ---
-
-If you want, I can also provide:
-
-* 📸 Sample PDF screenshots
-* 🧩 UML / architecture diagram
-* 🧪 Test cases
-* 🎤 Viva explanation points
-
-Just tell me 👍
