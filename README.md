@@ -1,8 +1,7 @@
 ---
 
 # 📄 Dynamic PDF Template Generation System
-
-***(Streamlit + MongoDB + PDF | app1 & app2 )***
+**(Streamlit + MongoDB + PDF | app1 & app2 )**
 
 ---
 
@@ -52,7 +51,7 @@ dynamic_pdf_template/
 ├── app.py        # Dynamic PDF Template System (Streamlit Cloud Version)
 ├── app1.py        # Professional PDF layout
 ├── app2.py        # Table-based PDF layout
-├── mongodb.py             # MongoDB connection & queries
+├── main.py             # MongoDB connection & queries with PDF
 ├── templates.json         # Salary & Bill templates
 ├── requirements.txt
 └── README.md
