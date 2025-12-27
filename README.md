@@ -204,16 +204,16 @@ DB_NAME = "pdf_templates"
 
 ### 3️⃣ Run Application
 
-#### Option A (Professional PDF)
+#### App 1 (Professional PDF)
 
 ```bash
-streamlit run app_option_a.py
+streamlit run app1.py
 ```
 
-#### Option C (Table PDF)
+#### App 2 (Table PDF)
 
 ```bash
-streamlit run app_option_c.py
+streamlit run app2.py
 ```
 
 ---
