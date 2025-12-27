@@ -17,7 +17,7 @@ The application allows users to:
 * Apply fallback default values
 * Control text alignment (Left / Center / Right)
 * Generate professional, realistic PDFs
-* Preview PDFs in two formats:
+* Preview PDFs in three formats:
 
   * **App :** Dynamic PDF Template System (Streamlit Cloud Version)
   * **App 1:** Professional document layout
@@ -49,8 +49,9 @@ This project strictly follows the assignment requirements.
 ```
 dynamic_pdf_template/
 │
-├── app.py        # Professional PDF layout
-├── app1.py        # Table-based PDF layout
+├── app1.py        # Professional PDF layout
+├── app1.py        # Professional PDF layout
+├├── app2.py        # Table-based PDF layout
 ├── mongodb.py             # MongoDB connection & queries
 ├── templates.json         # Salary & Bill templates
 ├── requirements.txt
