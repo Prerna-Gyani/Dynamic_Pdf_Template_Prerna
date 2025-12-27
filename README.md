@@ -1,9 +1,8 @@
-
 ---
 
 # 📄 Dynamic PDF Template Generation System
 
-**(Streamlit + MongoDB + PDF | Option A & Option C)**
+**(Streamlit + MongoDB + PDF | app1 & app2)**
 
 ---
 
@@ -20,8 +19,8 @@ The application allows users to:
 * Generate professional, realistic PDFs
 * Preview PDFs in two formats:
 
-  * **Option A:** Professional document layout
-  * **Option C:** Table-based layout
+  * **App 1:** Professional document layout
+  * **App 2:** Table-based layout
 
 This project strictly follows the assignment requirements.
 
@@ -49,8 +48,8 @@ This project strictly follows the assignment requirements.
 ```
 dynamic_pdf_template/
 │
-├── app_option_a.py        # Professional PDF layout
-├── app_option_c.py        # Table-based PDF layout
+├── app.py        # Professional PDF layout
+├── app1.py        # Table-based PDF layout
 ├── mongodb.py             # MongoDB connection & queries
 ├── templates.json         # Salary & Bill templates
 ├── requirements.txt
