@@ -204,10 +204,11 @@ DB_NAME = "pdf_templates"
 
 ### 3️⃣ Run Application
 
-#### App 1 (Professional PDF)
+#### App 1 (Professional PDF & Dynamic PDF Template System (Streamlit Cloud Version))
 
 ```bash
 streamlit run app1.py
+rstreamlit run app.py
 ```
 
 #### App 2 (Table PDF)
@@ -215,8 +216,11 @@ streamlit run app1.py
 ```bash
 streamlit run app2.py
 ```
+#### Mongodb PDF 
 
----
+```bash
+streamlit run main.py
+```
 
 ## ☁️ Streamlit Cloud Deployment
 
@@ -224,7 +228,7 @@ streamlit run app2.py
 2. Create new Streamlit app
 3. Select:
 
-   * `app_option_a.py` OR `app_option_c.py`
+   * `app1.py` OR `app2.py`
 4. Add MongoDB secrets in **Streamlit Cloud → Settings → Secrets**
 5. Deploy 🚀
 
