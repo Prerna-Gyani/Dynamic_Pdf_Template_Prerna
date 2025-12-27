@@ -268,3 +268,154 @@ This project demonstrates:
 * Production-ready Streamlit app
 
 ---
+
+
+
+# ✅ **Bill Template — Sample Input**
+
+### **Template Name**
+
+```
+Bill Template
+```
+
+---
+
+# 🧾 **HEADER (Sample Fields)**
+
+### **Field 1**
+
+| Field             | Value                 |
+| ----------------- | --------------------- |
+| **Key**           | Store Name            |
+| **Mapping Field** | bill → store → name   |
+| **Default Value** | Fresh Mart Superstore |
+| **Alignment**     | Center                |
+
+### **Field 2**
+
+| Field             | Value         |
+| ----------------- | ------------- |
+| **Key**           | Bill Number   |
+| **Mapping Field** | bill → number |
+| **Default Value** | 0001          |
+| **Alignment**     | Left          |
+
+---
+
+# 🧮 **BODY (Sample Fields)**
+
+### **Field 1**
+
+| Field             | Value                  |
+| ----------------- | ---------------------- |
+| **Key**           | Customer Name          |
+| **Mapping Field** | bill → customer → name |
+| **Default Value** | Valued Customer        |
+| **Alignment**     | Left                   |
+
+### **Field 2**
+
+| Field             | Value                       |
+| ----------------- | --------------------------- |
+| **Key**           | Item Total                  |
+| **Mapping Field** | bill → amount → total_items |
+| **Default Value** | 0                           |
+| **Alignment**     | Right                       |
+
+### **Field 3**
+
+| Field             | Value               |
+| ----------------- | ------------------- |
+| **Key**           | Tax Amount          |
+| **Mapping Field** | bill → amount → tax |
+| **Default Value** | 0                   |
+| **Alignment**     | Right               |
+
+### **Field 4**
+
+| Field             | Value                       |
+| ----------------- | --------------------------- |
+| **Key**           | Grand Total                 |
+| **Mapping Field** | bill → amount → grand_total |
+| **Default Value** | 0                           |
+| **Alignment**     | Right                       |
+
+---
+
+# 🧾 **FOOTER (Sample Fields)**
+
+### **Field 1**
+
+| Field             | Value                   |
+| ----------------- | ----------------------- |
+| **Key**           | Payment Method          |
+| **Mapping Field** | bill → payment → method |
+| **Default Value** | Cash                    |
+| **Alignment**     | Left                    |
+
+### **Field 2**
+
+| Field             | Value                           |
+| ----------------- | ------------------------------- |
+| **Key**           | Thank You Note                  |
+| **Mapping Field** | bill → thankyou                 |
+| **Default Value** | Thank you for shopping with us! |
+| **Alignment**     | Center                          |
+
+---
+
+# 🧩 **Dummy JSON Data That Matches These Fields**
+
+This will be used when generating the Bill Template PDF:
+
+```python
+bill_data = {
+    "bill": {
+        "store": {"name": "Fresh Mart – Indiranagar"},
+        "number": "BILL-67329",
+        "customer": {"name": "Rohit Kumar"},
+        "amount": {
+            "total_items": "3 items",
+            "tax": "₹18",
+            "grand_total": "₹418"
+        },
+        "payment": {"method": "UPI"},
+        "thankyou": "Visit Again!"
+    }
+}
+```
+
+---
+
+# 📄 Expected PDF Output (in app1 format)
+
+```
+           Fresh Mart – Indiranagar
+Bill Number: BILL-67329
+
+Customer Name: Rohit Kumar
+Item Total: 3 items
+Tax Amount: ₹18
+Grand Total: ₹418
+
+Payment Method: UPI
+               Visit Again!
+```
+
+---
+
+# 📄 Expected PDF Output (in app2 table format)
+
+| Key            | Value        |
+| -------------- | ------------ |
+| Customer Name  | Rohit Kumar  |
+| Item Total     | 3 items      |
+| Tax Amount     | ₹18          |
+| Grand Total    | ₹418         |
+| Payment Method | UPI          |
+| Thank You Note | Visit Again! |
+
+---
+
+
