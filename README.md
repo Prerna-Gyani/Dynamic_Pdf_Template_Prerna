@@ -271,7 +271,7 @@ This project demonstrates:
 
 
 
-# ✅ **Bill Template — Sample Input**
+# ✅ **Bill Template — Sample Input in app1.py & app2.py**
 
 ### **Template Name**
 
@@ -419,3 +419,116 @@ Payment Method: UPI
 ---
 
 
+# ✅ **Sample Template Input: Salary Slip Template in app.py **
+
+## **Template Name**
+
+```
+Salary Template
+```
+
+---
+
+## **HEADER Fields**
+
+### **Field 1**
+
+| Input             | Value                 |
+| ----------------- | --------------------- |
+| **Key**           | Company Name          |
+| **Mapping Field** | user → company → name |
+| **Default Value** | ABC Pvt Ltd           |
+| **Alignment**     | Center                |
+
+### **Field 2**
+
+| Input             | Value            |
+| ----------------- | ---------------- |
+| **Key**           | Employee Name    |
+| **Mapping Field** | user → name      |
+| **Default Value** | Unknown Employee |
+| **Alignment**     | Left             |
+
+---
+
+## **BODY Fields**
+
+### **Field 1**
+
+| Input             | Value                                  |
+| ----------------- | -------------------------------------- |
+| **Key**           | Total Salary                           |
+| **Mapping Field** | user → payDetail → total_salary_amount |
+| **Default Value** | 0                                      |
+| **Alignment**     | Right                                  |
+
+### **Field 2**
+
+| Input             | Value                  |
+| ----------------- | ---------------------- |
+| **Key**           | HRA                    |
+| **Mapping Field** | user → payDetail → hra |
+| **Default Value** | Not available          |
+| **Alignment**     | Left                   |
+
+---
+
+## **FOOTER Fields**
+
+### **Field 1**
+
+| Input             | Value              |
+| ----------------- | ------------------ |
+| **Key**           | Signature          |
+| **Mapping Field** | footer → signature |
+| **Default Value** | HR Department      |
+| **Alignment**     | Right              |
+
+---
+
+# 📌 **How the JSON Matches These Inputs**
+
+Your `dummy_data` already contains:
+
+```python
+{
+    "user": {
+        "name": "Amit Sharma",
+        "payDetail": {
+            "total_salary_amount": "75,000 INR",
+            "hra": "10,000 INR"
+        }
+    }
+}
+```
+
+### So the sample inputs will map correctly:
+
+| Mapping Field                            | JSON Value                                   |
+| ---------------------------------------- | -------------------------------------------- |
+| `user → name`                            | Amit Sharma                                  |
+| `user → payDetail → total_salary_amount` | 75,000 INR                                   |
+| `user → payDetail → hra`                 | 10,000 INR                                   |
+| `user → company → name`                  | ❌ Not present → uses default `ABC Pvt Ltd`   |
+| `footer → signature`                     | ❌ Not present → uses default `HR Department` |
+
+---
+
+# 🎉 Resulting PDF Example Output
+
+```
+Header:
+Company Name: ABC Pvt Ltd
+Employee Name: Amit Sharma
+
+Body:
+Total Salary: 75,000 INR
+HRA: 10,000 INR
+
+Footer:
+Signature: HR Department
+```
+
+Alignments will be applied exactly as selected.
+
+---
